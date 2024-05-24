@@ -13,6 +13,7 @@
 		FCA259932C00BF23000AB252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA259922C00BF23000AB252 /* Assets.xcassets */; };
 		FCA259962C00BF23000AB252 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCA259942C00BF23000AB252 /* LaunchScreen.storyboard */; };
 		FCA259A02C00C506000AB252 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2599F2C00C506000AB252 /* HomeViewModel.swift */; };
+		FCA259A32C00D21C000AB252 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259A22C00D21C000AB252 /* SearchResultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		FCA259952C00BF23000AB252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCA259972C00BF23000AB252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCA2599F2C00C506000AB252 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		FCA259A22C00D21C000AB252 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,10 +79,19 @@
 		FCA2599E2C00C4D0000AB252 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				FCA259A12C00D1E9000AB252 /* Cell */,
 				FCA2598D2C00BF22000AB252 /* HomeViewController.swift */,
 				FCA2599F2C00C506000AB252 /* HomeViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		FCA259A12C00D1E9000AB252 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FCA259A22C00D21C000AB252 /* SearchResultCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +168,7 @@
 				FCA2598A2C00BF22000AB252 /* AppDelegate.swift in Sources */,
 				FCA2598C2C00BF22000AB252 /* SceneDelegate.swift in Sources */,
 				FCA259A02C00C506000AB252 /* HomeViewModel.swift in Sources */,
+				FCA259A32C00D21C000AB252 /* SearchResultCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
