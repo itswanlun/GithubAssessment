@@ -13,8 +13,8 @@ struct Repositories: Codable {
 
 struct Item: Codable {
     let fullname: String
-    let description: String
-    let language: String
+    let description: String?
+    let language: String?
     let stargazersCount: Int
     let watchersCount: Int
     let forksCount: Int
@@ -36,8 +36,10 @@ struct Item: Codable {
 
 struct Owner: Codable {
     let icon: String
+    let login: String
     
     enum CodingKeys: String, CodingKey {
         case icon = "avatar_url"
+        case login
     }
 }
