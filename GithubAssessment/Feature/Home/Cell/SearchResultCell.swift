@@ -53,14 +53,13 @@ class SearchResultCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .semibold)
-        label.text = "apple/swift"
+        label.numberOfLines = 1
         return label
     }()
     
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "The Swift Programming Language The Swift Programming Language "
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14, weight: .regular)
         return label
@@ -100,6 +99,9 @@ private extension SearchResultCell {
             containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
         
+        titleLabel.setContentHuggingPriority(.required, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+
         NSLayoutConstraint.activate([
             innerStackView.topAnchor.constraint(greaterThanOrEqualTo: innerView.topAnchor),
             innerStackView.bottomAnchor.constraint(lessThanOrEqualTo: innerView.bottomAnchor),
