@@ -14,6 +14,10 @@
 		FCA259962C00BF23000AB252 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCA259942C00BF23000AB252 /* LaunchScreen.storyboard */; };
 		FCA259A02C00C506000AB252 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2599F2C00C506000AB252 /* HomeViewModel.swift */; };
 		FCA259A32C00D21C000AB252 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259A22C00D21C000AB252 /* SearchResultCell.swift */; };
+		FCA259A62C01004C000AB252 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259A52C01004C000AB252 /* APIClient.swift */; };
+		FCA259A82C0175FD000AB252 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259A72C0175FD000AB252 /* Response.swift */; };
+		FCA259AB2C018769000AB252 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */; };
+		FCA259AD2C019E55000AB252 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AC2C019E55000AB252 /* Collection+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		FCA259972C00BF23000AB252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCA2599F2C00C506000AB252 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FCA259A22C00D21C000AB252 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		FCA259A52C01004C000AB252 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		FCA259A72C0175FD000AB252 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		FCA259AC2C019E55000AB252 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,8 @@
 		FCA2599D2C00C3E7000AB252 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				FCA259A92C01874F000AB252 /* Extension */,
+				FCA259A42C010032000AB252 /* APIService */,
 				FCA2599E2C00C4D0000AB252 /* Home */,
 			);
 			path = Feature;
@@ -92,6 +102,24 @@
 				FCA259A22C00D21C000AB252 /* SearchResultCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		FCA259A42C010032000AB252 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				FCA259A52C01004C000AB252 /* APIClient.swift */,
+				FCA259A72C0175FD000AB252 /* Response.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		FCA259A92C01874F000AB252 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */,
+				FCA259AC2C019E55000AB252 /* Collection+Ext.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +192,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCA259AB2C018769000AB252 /* UIImageView+Ext.swift in Sources */,
 				FCA2598E2C00BF22000AB252 /* HomeViewController.swift in Sources */,
 				FCA2598A2C00BF22000AB252 /* AppDelegate.swift in Sources */,
 				FCA2598C2C00BF22000AB252 /* SceneDelegate.swift in Sources */,
 				FCA259A02C00C506000AB252 /* HomeViewModel.swift in Sources */,
 				FCA259A32C00D21C000AB252 /* SearchResultCell.swift in Sources */,
+				FCA259AD2C019E55000AB252 /* Collection+Ext.swift in Sources */,
+				FCA259A62C01004C000AB252 /* APIClient.swift in Sources */,
+				FCA259A82C0175FD000AB252 /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
