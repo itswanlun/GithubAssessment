@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class HomeViewController: UIViewController {
     
@@ -28,15 +29,24 @@ class HomeViewController: UIViewController {
     }()
     
     let viewModel = HomeViewModel()
+    var cancellables = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
         binding()
+        viewModel.loadData(q: "swift", page: 1)
     }
     
-    
+    func binding() {
+        viewModel.dataChangedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
 }
 
 private extension HomeViewController {
@@ -74,16 +84,22 @@ private extension HomeViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        viewModel.numberOfRowsInSections(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultCell.self), for: indexPath) as? SearchResultCell else {
+        guard let item = viewModel.cellForRowAt(indexPath) else {
             return UITableViewCell()
         }
         
-        return cell
+        switch item {
+        case .result(let model):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultCell.self), for: indexPath) as? SearchResultCell else {
+                return UITableViewCell()
+            }
+            
+            cell.config(model: model)
+            return cell
+        }
     }
-    
-    
 }
