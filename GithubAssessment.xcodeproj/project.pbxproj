@@ -18,6 +18,8 @@
 		FCA259A82C0175FD000AB252 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259A72C0175FD000AB252 /* Response.swift */; };
 		FCA259AB2C018769000AB252 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */; };
 		FCA259AD2C019E55000AB252 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AC2C019E55000AB252 /* Collection+Ext.swift */; };
+		FCA259AF2C01A5BB000AB252 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */; };
+		FCA259B52C02336A000AB252 /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = FCA259B42C02336A000AB252 /* CombineExt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,7 @@
 		FCA259A72C0175FD000AB252 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		FCA259AC2C019E55000AB252 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
+		FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCA259B52C02336A000AB252 /* CombineExt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +96,7 @@
 				FCA259A12C00D1E9000AB252 /* Cell */,
 				FCA2598D2C00BF22000AB252 /* HomeViewController.swift */,
 				FCA2599F2C00C506000AB252 /* HomeViewModel.swift */,
+				FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -138,6 +143,9 @@
 			dependencies = (
 			);
 			name = GithubAssessment;
+			packageProductDependencies = (
+				FCA259B42C02336A000AB252 /* CombineExt */,
+			);
 			productName = GithubAssessment;
 			productReference = FCA259862C00BF22000AB252 /* GithubAssessment.app */;
 			productType = "com.apple.product-type.application";
@@ -166,6 +174,9 @@
 				Base,
 			);
 			mainGroup = FCA2597D2C00BF22000AB252;
+			packageReferences = (
+				FCA259B32C02336A000AB252 /* XCRemoteSwiftPackageReference "CombineExt" */,
+			);
 			productRefGroup = FCA259872C00BF22000AB252 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -199,6 +210,7 @@
 				FCA259A02C00C506000AB252 /* HomeViewModel.swift in Sources */,
 				FCA259A32C00D21C000AB252 /* SearchResultCell.swift in Sources */,
 				FCA259AD2C019E55000AB252 /* Collection+Ext.swift in Sources */,
+				FCA259AF2C01A5BB000AB252 /* DetailViewController.swift in Sources */,
 				FCA259A62C01004C000AB252 /* APIClient.swift in Sources */,
 				FCA259A82C0175FD000AB252 /* Response.swift in Sources */,
 			);
@@ -412,6 +424,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FCA259B32C02336A000AB252 /* XCRemoteSwiftPackageReference "CombineExt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineExt.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FCA259B42C02336A000AB252 /* CombineExt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCA259B32C02336A000AB252 /* XCRemoteSwiftPackageReference "CombineExt" */;
+			productName = CombineExt;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FCA2597E2C00BF22000AB252 /* Project object */;
 }
