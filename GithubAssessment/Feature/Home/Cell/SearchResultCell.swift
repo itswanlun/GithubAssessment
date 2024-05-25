@@ -8,38 +8,49 @@
 import Foundation
 import UIKit
 
+extension SearchResultCell {
+    struct Model {
+        let icon: String
+        let fullname: String
+        let description: String
+    }
+}
+
 class SearchResultCell: UITableViewCell {
-    lazy var containerStackView: UIStackView = {
+    private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.spacing = 5
+        stackView.spacing = 10
         return stackView
     }()
     
-    lazy var iconImageView: UIImageView = {
+    private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "figure.walk.circle.fill")
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 40
         return imageView
     }()
     
-    lazy var innerView: UIView = {
+    private lazy var innerView: UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var innerStackView: UIStackView = {
+    private lazy var innerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .semibold)
@@ -47,7 +58,7 @@ class SearchResultCell: UITableViewCell {
         return label
     }()
     
-    lazy var subtitleLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "The Swift Programming Language The Swift Programming Language "
@@ -65,6 +76,13 @@ class SearchResultCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func config(model: Model) {
+        if let url = URL(string: model.icon) {
+            iconImageView.setImage(url: url)
+        }
+        titleLabel.text = model.fullname
+        subtitleLabel.text = model.description
+    }
 }
 
 private extension SearchResultCell {
