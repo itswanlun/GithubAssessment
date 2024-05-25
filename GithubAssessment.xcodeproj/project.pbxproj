@@ -20,6 +20,7 @@
 		FCA259AD2C019E55000AB252 /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AC2C019E55000AB252 /* Collection+Ext.swift */; };
 		FCA259AF2C01A5BB000AB252 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */; };
 		FCA259B52C02336A000AB252 /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = FCA259B42C02336A000AB252 /* CombineExt */; };
+		FCE435BE2C0254250017FC82 /* Optional+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE435BD2C0254250017FC82 /* Optional+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		FCA259AC2C019E55000AB252 /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
 		FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		FCE435BD2C0254250017FC82 /* Optional+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		FCA259882C00BF22000AB252 /* GithubAssessment */ = {
 			isa = PBXGroup;
 			children = (
+				FCE435C02C0255BD0017FC82 /* Infrastructure */,
 				FCA2599D2C00C3E7000AB252 /* Feature */,
 				FCA259892C00BF22000AB252 /* AppDelegate.swift */,
 				FCA2598B2C00BF22000AB252 /* SceneDelegate.swift */,
@@ -83,8 +86,6 @@
 		FCA2599D2C00C3E7000AB252 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				FCA259A92C01874F000AB252 /* Extension */,
-				FCA259A42C010032000AB252 /* APIService */,
 				FCA2599E2C00C4D0000AB252 /* Home */,
 			);
 			path = Feature;
@@ -93,10 +94,10 @@
 		FCA2599E2C00C4D0000AB252 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				FCE435BF2C0254B70017FC82 /* Detail */,
 				FCA259A12C00D1E9000AB252 /* Cell */,
 				FCA2598D2C00BF22000AB252 /* HomeViewController.swift */,
 				FCA2599F2C00C506000AB252 /* HomeViewModel.swift */,
-				FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -121,10 +122,28 @@
 		FCA259A92C01874F000AB252 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FCE435BD2C0254250017FC82 /* Optional+Ext.swift */,
 				FCA259AA2C018769000AB252 /* UIImageView+Ext.swift */,
 				FCA259AC2C019E55000AB252 /* Collection+Ext.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		FCE435BF2C0254B70017FC82 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				FCA259AE2C01A5BA000AB252 /* DetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		FCE435C02C0255BD0017FC82 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				FCA259A92C01874F000AB252 /* Extension */,
+				FCA259A42C010032000AB252 /* APIService */,
+			);
+			path = Infrastructure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +224,7 @@
 			files = (
 				FCA259AB2C018769000AB252 /* UIImageView+Ext.swift in Sources */,
 				FCA2598E2C00BF22000AB252 /* HomeViewController.swift in Sources */,
+				FCE435BE2C0254250017FC82 /* Optional+Ext.swift in Sources */,
 				FCA2598A2C00BF22000AB252 /* AppDelegate.swift in Sources */,
 				FCA2598C2C00BF22000AB252 /* SceneDelegate.swift in Sources */,
 				FCA259A02C00C506000AB252 /* HomeViewModel.swift in Sources */,
