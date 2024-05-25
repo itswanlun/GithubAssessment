@@ -28,12 +28,23 @@ class HomeViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var toolBar: UIToolbar = {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = .black
+        toolBar.sizeToFit()
+        
+        return toolBar
+    }()
+    
     lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.searchBarStyle = UISearchBar.Style.default
         search.placeholder = "請輸入關鍵字搜尋"
         search.returnKeyType = .done
         search.delegate = self
+        search.inputAccessoryView = toolBar
         return search
     }()
     
@@ -44,6 +55,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
+        setupToolbar()
         binding()
     }
     
@@ -72,6 +84,18 @@ class HomeViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    func setupToolbar() {
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(doneTapped))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+    }
+    
+    @objc func doneTapped() {
+        searchBar.resignFirstResponder()
+    }
+    
     @objc func handleRefreshControl() {
         viewModel.triggerLoadPageSubject.send()
     }
@@ -89,6 +113,7 @@ private extension HomeViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         title = "Repository Search"
     }
     
@@ -161,5 +186,9 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.triggerLoadPageSubject.send()
         searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.keywordSubject.send(nil)
     }
 }

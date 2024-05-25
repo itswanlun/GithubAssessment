@@ -30,10 +30,10 @@ enum Home {
 
 class HomeViewModel {
     // Input
-    var keywordSubject = CurrentValueSubject<String?, Never>(nil)
-    var pageSubject = CurrentValueSubject<Int, Never>(1)
-    var triggerLoadPageSubject = PassthroughSubject<Void, Never>()
-    var triggerNextPageSubject = PassthroughSubject<Void, Never>()
+    let keywordSubject = CurrentValueSubject<String?, Never>(nil)
+    let pageSubject = CurrentValueSubject<Int, Never>(1)
+    let triggerLoadPageSubject = PassthroughSubject<Void, Never>()
+    let triggerNextPageSubject = PassthroughSubject<Void, Never>()
     
     // Output
     var dataChangedPublisher: AnyPublisher<[Home.Section], Never> {
@@ -69,7 +69,7 @@ class HomeViewModel {
             .throttle(for: 3.0, scheduler: RunLoop.main, latest: true)
             .filter { !$0.isEnd }
             .sink(receiveValue: { [weak self] (action, keyword, isEnd) in
-                if let keyword {
+                if let keyword, !keyword.isEmpty {
                     self?.fetchDataSubject.send((action, keyword))
                 } else {
                     self?.errorSubject.send(AppError.emptyKeyword)
@@ -112,6 +112,13 @@ class HomeViewModel {
             }
             .map { [Home.Section(rows: $0)] }
             .subscribe(sectionsSubject)
+            .store(in: &cancellables)
+        
+        keywordSubject
+            .filter { $0.isEmptyOrNil }
+            .sink(receiveValue: { [weak self] _ in
+                self?.repositoresSubject.send([])
+            })
             .store(in: &cancellables)
     }
 }
