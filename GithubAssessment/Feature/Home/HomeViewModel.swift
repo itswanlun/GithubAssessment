@@ -7,6 +7,11 @@
 
 import Foundation
 import Combine
+import CombineExt
+
+enum AppError: Error {
+    case emptyKeyword
+}
 
 enum Home {
     struct Section {
@@ -16,44 +21,97 @@ enum Home {
     enum Row {
         case result(SearchResultCell.Model)
     }
+    
+    enum FetchDataAction {
+        case first
+        case next
+    }
 }
 
 class HomeViewModel {
-    private let repositoresSubject = CurrentValueSubject<Repositories?, Never>(nil)
+    // Input
+    var keywordSubject = CurrentValueSubject<String?, Never>(nil)
+    var pageSubject = CurrentValueSubject<Int, Never>(1)
+    var triggerLoadPageSubject = PassthroughSubject<Void, Never>()
+    var triggerNextPageSubject = PassthroughSubject<Void, Never>()
     
-    private(set) var sectionsSubject = CurrentValueSubject<[Home.Section], Never>([])
+    // Output
     var dataChangedPublisher: AnyPublisher<[Home.Section], Never> {
         sectionsSubject.eraseToAnyPublisher()
     }
+    var errorPublisher: AnyPublisher<Error, Never> {
+        errorSubject.eraseToAnyPublisher()
+    }
     
+    // Private
+    private var isEndOfPageSubject = CurrentValueSubject<Bool, Never>(false)
+    private var sectionsSubject = CurrentValueSubject<[Home.Section], Never>([])
+    private let fetchDataSubject = PassthroughSubject<(Home.FetchDataAction, String), Never>()
+    private let errorSubject = PassthroughSubject<Error, Never>()
+    private let repositoresSubject = CurrentValueSubject<[Item], Never>([])
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         binding()
     }
     
-    func binding() {
-        repositoresSubject
-            .compactMap { repo -> [Home.Section]? in
-                return repo?.items
-                    .map {
-                        $0.map {
-                            Home.Row.result(SearchResultCell.Model(icon: $0.owner.icon, fullname: $0.fullname, description: $0.description))
-                        }
-                    }
-                    .map { [Home.Section(rows: $0)] }
-            }
-            .subscribe(sectionsSubject)
+    private func binding() {
+        let triggerLoadPage = triggerLoadPageSubject
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.pageSubject.send(1)
+            })
+            .withLatestFrom(keywordSubject, isEndOfPageSubject) { (action: Home.FetchDataAction.first, keyword: $1.0, isEnd: $1.1) }
+         
+        let triggerNextPage = triggerNextPageSubject
+            .withLatestFrom(keywordSubject, isEndOfPageSubject) { (action: Home.FetchDataAction.next, keyword: $1.0, isEnd: $1.1) }
+        
+        Publishers.Merge(triggerLoadPage, triggerNextPage)
+            .throttle(for: 3.0, scheduler: RunLoop.main, latest: true)
+            .filter { !$0.isEnd }
+            .sink(receiveValue: { [weak self] (action, keyword, isEnd) in
+                if let keyword {
+                    self?.fetchDataSubject.send((action, keyword))
+                } else {
+                    self?.errorSubject.send(AppError.emptyKeyword)
+                }
+            })
             .store(in: &cancellables)
-    }
-    
-    func loadData(q: String, page: Int) {
-        APIClient.shared.getRepositores(q: q, page: page)
-            .compactMap { result in
-                guard let repo = try? result.get() else { return nil }
-                return repo
+        
+        fetchDataSubject
+            .withLatestFrom(pageSubject, repositoresSubject) { (action: $0.0, keyword: $0.1, page: $1.0, currentItems: $1.1) }
+            .map { action, keyword, page, currentItems in
+                APIClient.shared.getRepositores(q: keyword, page: page)
+                    .tryMap {
+                        try $0.get().items
+                    }
+                    .replaceNil(with: [])
+                    .replaceError(with: [])
+                    .map { (action, page, currentItems, $0) }
             }
-            .subscribe(repositoresSubject)
+            .switchToLatest()
+            .sink(receiveValue: { [weak self] (action, page, currentItems, newItems) in
+                if newItems.isEmpty {
+                    self?.isEndOfPageSubject.send(true)
+                } else {
+                    switch action {
+                    case .first:
+                        self?.repositoresSubject.send(newItems)
+                    case .next:
+                        self?.repositoresSubject.send(currentItems + newItems)
+                    }
+                    self?.pageSubject.send(page + 1)
+                }
+            })
+            .store(in: &cancellables)
+        
+        repositoresSubject
+            .map { items in
+                items.map {
+                    Home.Row.result(SearchResultCell.Model(icon: $0.owner.icon, fullname: $0.fullname, description: $0.description))
+                }
+            }
+            .map { [Home.Section(rows: $0)] }
+            .subscribe(sectionsSubject)
             .store(in: &cancellables)
     }
 }
@@ -66,5 +124,8 @@ extension HomeViewModel {
     func cellForRowAt(_ indexPath: IndexPath) -> Home.Row? {
         sectionsSubject.value[safe: indexPath.section]?.rows[safe: indexPath.row]
     }
+    
+    func didSelectRowAt(_ indexPath: IndexPath) -> Item? {
+        repositoresSubject.value[safe: indexPath.row]
+    }
 }
-
