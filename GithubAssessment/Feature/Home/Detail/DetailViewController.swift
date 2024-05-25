@@ -33,6 +33,7 @@ class DetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 30, weight: .semibold)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -139,9 +140,11 @@ private extension DetailViewController {
             containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
+        let widthConstraint = iconImageView.widthAnchor.constraint(equalToConstant: 250)
+        widthConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
             iconImageView.heightAnchor.constraint(equalToConstant: 300),
-            iconImageView.widthAnchor.constraint(equalToConstant: 250)
+            widthConstraint
         ])
     }
 }
