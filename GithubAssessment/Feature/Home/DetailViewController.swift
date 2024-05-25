@@ -104,8 +104,11 @@ class DetailViewController: UIViewController {
             iconImageView.setImage(url: url)
         }
         
+        if let language = item.language {
+            languageLabel.text = "Written in \(language)"
+        }
+        
         titleLabel.text = item.fullname
-        languageLabel.text = "Written in Java \(item.language)"
         startsLabel.text = "\(item.stargazersCount) stars"
         watchersLabel.text = "\(item.watchersCount) watchers"
         forksLabel.text = "\(item.forksCount) forks"
