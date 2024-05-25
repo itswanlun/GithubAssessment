@@ -12,7 +12,7 @@ extension SearchResultCell {
     struct Model {
         let icon: String
         let fullname: String
-        let description: String
+        let description: String?
     }
 }
 
