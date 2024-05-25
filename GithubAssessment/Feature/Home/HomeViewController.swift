@@ -13,7 +13,6 @@ class HomeViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: String(describing: SearchResultCell.self))
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension
@@ -25,8 +24,6 @@ class HomeViewController: UIViewController {
         search.searchBarStyle = UISearchBar.Style.default
         search.placeholder = "請輸入關鍵字搜尋"
         search.returnKeyType = .done
-//        search.inputAccessoryView = toolBar
-        
         return search
     }()
     
@@ -36,7 +33,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupUI()
-//        sizeHeaderToFit()
+        binding()
     }
     
     
